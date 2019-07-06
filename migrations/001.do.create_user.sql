@@ -1,0 +1,15 @@
+BEGIN;
+
+DROP TABLE IF EXISTS "meal";
+DROP TABLE IF EXISTS "user";
+DROP SEQUENCE IF EXISTS "user_id_seq";
+DROP SEQUENCE IF EXISTS "meal_id_seq";
+
+CREATE TABLE "user" (
+  "id" SERIAL PRIMARY KEY,
+  "username" TEXT NOT NULL UNIQUE,
+  "password" TEXT NOT NULL,
+  "name" TEXT NOT NULL
+);
+
+COMMIT;
