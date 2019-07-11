@@ -2,30 +2,32 @@ const express = require('express')
 const mealsRouter= express.Router()
 const jsonBodyParser= express.json()
 const mealService = require('./meals-services')
-const {requireAuth} = require('../middleware/jwt-auth')
+const requireAuth = require('../middleware/jwt-auth')
 
 
 mealsRouter
-// .post('/',requireAuth, jsonBodyParser, (req,res,next)=>{
+.post('/', requireAuth, jsonBodyParser, (req,res,next)=>{
    
-//     const newMeal = req.body;
-//     newMeal.user_id = req.user.id;
+    const newMeal = req.body;
     
-//     mealService.insertMeal(
-//         req.app.get('db'),
-//         newMeal
-//     )
-//     .then((meal) => { 
-//         return mealService.serializeMeal(meal[0])
-//     }) 
-//     .then(meal =>{
-//           // HOW DO I SEND THIS ID BACK TO FRONT END????????????
-//         return res.status(201).json(meal)              // .location(`/meals/${meal.id}`)
-//     })
-//     .catch(next);
-// })
+    newMeal.user_id = req.user.id;
+  
+    mealService.insertMeal(
+        req.app.get('db'),
+        newMeal
+    )
+    .then((meal) => { 
+        return mealService.serializeMeal(meal)
+    }) 
+    .then(meal =>{
+        console.log(meal,'&&&&&&&&&&&&&&&&&&&&&&')
+          // HOW DO I SEND THIS ID BACK TO FRONT END????????????
+        return res.status(201).json(meal)              // .location(`/meals/${meal.id}`)
+    })
+    .catch(next);
+})
 
-.get('/', jsonBodyParser,(req,res, next)=>{ 
+.get('/', requireAuth, jsonBodyParser,(req,res, next)=>{ 
   
     const user_id = req.user_id
     console.log(user_id)
