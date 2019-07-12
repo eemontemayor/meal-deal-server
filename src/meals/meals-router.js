@@ -20,17 +20,16 @@ mealsRouter
         return mealService.serializeMeal(meal)
     }) 
     .then(meal =>{
-        console.log(meal,'&&&&&&&&&&&&&&&&&&&&&&')
-          // HOW DO I SEND THIS ID BACK TO FRONT END????????????
-        return res.status(201).json(meal)              // .location(`/meals/${meal.id}`)
+        
+        return res.status(201).json(meal)              
     })
     .catch(next);
 })
 
 .get('/', requireAuth, jsonBodyParser,(req,res, next)=>{ 
   
-    const user_id = req.user_id
-    console.log(user_id)
+    const user_id = req.user.id
+    console.log(user_id,'=====')
     mealService.getMeals(
         req.app.get('db'),
         user_id
@@ -57,6 +56,23 @@ mealsRouter
     
   
 // })
+mealsRouter
+.get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
+    
+    const on_day=req.params.date
+    
+    const user_id = req.user.id
 
+    mealService.getMealsByDate(
+        req.app.get('db'),
+        user_id,
+        on_day
+    )
+    .then((meals) => {
+        
+        return res.json(meals.map(i => mealService.serializeMeal(i)))
+    })
+    .catch(next);
+})
 
 module.exports = mealsRouter
