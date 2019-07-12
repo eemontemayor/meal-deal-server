@@ -17,12 +17,10 @@ mealsRouter
         newMeal
     )
     .then((meal) => { 
-        return mealService.serializeMeal(meal)
-    }) 
-    .then(meal =>{
         
-        return res.status(201).json(meal)              
-    })
+        return res.json(meal.map(i => mealService.serializeMeal(i)))
+    }) 
+  
     .catch(next);
 })
 
@@ -58,7 +56,7 @@ mealsRouter
 // })
 mealsRouter
 .get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
-    
+
     const on_day=req.params.date
     
     const user_id = req.user.id
