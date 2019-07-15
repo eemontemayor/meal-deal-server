@@ -17,7 +17,6 @@ const mealService = {
         }, 
 
     getMealsByDate(db, user_id, on_day){
-        console.log('^^^^^^^^^^^^^HERE^^^^^^^^^^^^^^^')
         return db.select('*').from('meal').where({user_id}).where({on_day});
         }, 
 

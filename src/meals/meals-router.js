@@ -40,20 +40,21 @@ mealsRouter
 
 
 
-// .delete('/', jsonBodyParser,(req,res,next)=>{
-//     let id = req.body.id
-    
-//     mealService.deleteMeal(
-//         req.app.get('db'),
-//         id
-//     )
-//     .then(meal =>{
-//         res.status(204).end()
-//     })
-//     .catch(next)
+.delete('/', jsonBodyParser,(req,res,next)=>{
+    let id = req.body.id
+    console.log('%%%%%%%%%%%%%%%%%%%%%%%')
+    console.log(id,'::::::::::')
+    mealService.deleteMeal(
+        req.app.get('db'),
+        id
+    )
+    .then(meal =>{
+        res.status(204).end()
+    })
+    .catch(next)
     
   
-// })
+})
 mealsRouter
 .get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
 
