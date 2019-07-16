@@ -12,6 +12,8 @@ mealsRouter
     
     newMeal.user_id = req.user.id;
   
+
+    console.log(newMeal)
     mealService.insertMeal(
         req.app.get('db'),
         newMeal
@@ -27,7 +29,7 @@ mealsRouter
 .get('/', requireAuth, jsonBodyParser,(req,res, next)=>{ 
   
     const user_id = req.user.id
-    console.log(user_id,'=====')
+  
     mealService.getMeals(
         req.app.get('db'),
         user_id
@@ -71,6 +73,38 @@ mealsRouter
         
         return res.json(meals.map(i => mealService.serializeMeal(i)))
     })
+    .catch(next);
+})
+
+mealsRouter
+.get('/bookmarks', requireAuth, jsonBodyParser,(req,res, next)=>{ 
+  
+    const user_id = req.user.id
+    console.log('+++++++++++++++++++++++++++++++++++')
+    mealService.getBookmarks(
+        req.app.get('db'),
+        user_id
+    )
+    .then((meals) => {
+        return res.json(meals.map(i => mealService.serializeMeal(i)))
+    })
+    .catch(next);
+})
+.post('/bookmarks', requireAuth, jsonBodyParser, (req,res,next)=>{
+   
+    const newMeal = req.body;
+    
+    newMeal.user_id = req.user.id;
+    console.log(newMeal)
+    mealService.insertBookmark(
+        req.app.get('db'),
+        newMeal
+    )
+    .then((meal) => { 
+        
+        return res.json(meal.map(i => mealService.serializeMeal(i)))
+    }) 
+  
     .catch(next);
 })
 

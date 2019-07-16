@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const AuthRouter = require('./auth/auth-router');
 const mealsRouter = require('./meals/meals-router')
+const bookMarksRouter = require('./meals/bookmarks-router')
 const app = express()
 
 const morganOption = (NODE_ENV === 'production')
@@ -18,6 +19,7 @@ app.use(helmet())
 
 app.use('/api/auth', AuthRouter);
 app.use('/api/meals', mealsRouter);
+app.use('/api/bookmarks', bookMarksRouter);
 
  app.get('/', (req, res) => {
        res.send('Hello, world!')

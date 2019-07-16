@@ -19,7 +19,18 @@ const mealService = {
     getMealsByDate(db, user_id, on_day){
         return db.select('*').from('meal').where({user_id}).where({on_day});
         }, 
-
+    getBookmarks(db,user_id){
+        return db.select('*').from('bookmark').where({user_id})
+    },
+    insertBookmark(db, newMeal){
+        return db
+        .insert(newMeal)
+        .into('bookmark')
+        .returning('*')
+        .then(meal=> {
+            return meal  
+        })
+        },
 
 
     deleteMeal(db, id){
