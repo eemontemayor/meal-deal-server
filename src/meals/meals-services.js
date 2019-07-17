@@ -41,7 +41,11 @@ const mealService = {
         .delete() 
     },   
 
-
+    deleteBookmark(db, id){
+        return db('bookmark')
+        .where({id})
+        .delete() 
+    },  
 
 
     serializeMeal(meal){

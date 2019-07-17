@@ -35,4 +35,17 @@ bookMarksRouter
   
     .catch(next);
 })
+.delete('/', jsonBodyParser,(req,res,next)=>{
+    let id = req.body.id
+   
+    mealService.deleteBookmark(
+        req.app.get('db'),
+        id
+    )
+    .then(meal =>{
+        res.status(204).end()
+    })
+    .catch(next)
+    
+})
 module.exports=bookMarksRouter
