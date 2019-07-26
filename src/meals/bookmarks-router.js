@@ -9,7 +9,6 @@ bookMarksRouter
 .get('/', requireAuth, jsonBodyParser,(req,res, next)=>{ 
   
     const user_id = req.user.id
-    console.log(user_id,'+++++++++++++++++++++++++++++++++++')
     mealService.getBookmarks(
         req.app.get('db'),
         user_id
@@ -23,26 +22,27 @@ bookMarksRouter
     const newMeal = req.body;
     
     newMeal.user_id = req.user.id;
-    console.log(newMeal,'from bm router')
+
     mealService.insertBookmark(
         req.app.get('db'),
         newMeal
     )
     .then((meal) => { 
         
-        return res.json(meal.map(i => mealService.serializeMeal(i)))
+        return res.json(mealService.serializeMeal(meal))
     }) 
   
     .catch(next);
 })
 .delete('/', jsonBodyParser,(req,res,next)=>{
     let id = req.body.id
-   
+   console.log(id)
     mealService.deleteBookmark(
         req.app.get('db'),
         id
     )
     .then(meal =>{
+        console.log(meal,'+++++++++++++++++++')
         res.status(204).end()
     })
     .catch(next)

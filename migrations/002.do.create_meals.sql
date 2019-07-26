@@ -7,7 +7,6 @@ CREATE TABLE "meal" (
   "ingredients" TEXT,
   image TEXT,
   "date_created" TIMESTAMP DEFAULT now() NOT NULL,
-  "bookmarked" BOOLEAN,
   "user_id" INTEGER REFERENCES "user"(id)
     ON DELETE CASCADE NOT NULL
 );
@@ -18,7 +17,6 @@ CREATE TABLE "bookmark" (
   "ingredients" TEXT,
   image TEXT,
   "date_created" TIMESTAMP DEFAULT now() NOT NULL,
-  "bookmarked" BOOLEAN,
   "user_id" INTEGER REFERENCES "user"(id)
     ON DELETE CASCADE NOT NULL
 );
