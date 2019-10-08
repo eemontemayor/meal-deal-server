@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eemontemayor/express-boilerplate.git"
+    "url": "git+https://github.com/eemontemayor/meal-deal-server.git"
   },
   "keywords": [],
   "engines": {
@@ -23,9 +23,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eemontemayor/express-boilerplate/issues"
+    "url": "git+https://github.com/eemontemayor/meal-deal-server.git"
   },
-  "homepage": "https://github.com/eemontemayor/express-boilerplate#readme",
+  "homepage": "https://github.com/eemontemayor/meal-deal-server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
