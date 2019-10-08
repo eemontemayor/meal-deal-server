@@ -6,5 +6,6 @@ module.exports = {
     TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
     DB_URL: process.env.DB_URL || 'meal_deal@localhost/meal_deal',
     DATABASE_URL: process.env.DATABASE_URL,
+    CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || '*',
 
   }
