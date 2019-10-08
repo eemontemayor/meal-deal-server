@@ -23,7 +23,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "git+https://github.com/eemontemayor/meal-deal-server.git"
+    "url": "https://github.com/eemontemayor/meal-deal-server.git"
   },
   "homepage": "https://github.com/eemontemayor/meal-deal-server#readme",
   "dependencies": {
