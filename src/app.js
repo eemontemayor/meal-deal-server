@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
-const {CLIENT_ORIGIN} = require('./config');
+// const {CLIENT_ORIGIN} = require('./config');
 const { NODE_ENV } = require('./config')
 const AuthRouter = require('./auth/auth-router');
 const mealsRouter = require('./meals/meals-router')
@@ -16,9 +16,7 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption))
 app.use(
-  cors({
-      origin: CLIENT_ORIGIN
-  })
+  cors()
 );
 app.use(helmet())
 
