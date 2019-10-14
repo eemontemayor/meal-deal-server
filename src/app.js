@@ -8,6 +8,7 @@ const { NODE_ENV } = require('./config')
 const AuthRouter = require('./auth/auth-router');
 const mealsRouter = require('./meals/meals-router')
 const bookMarksRouter = require('./meals/bookmarks-router')
+const shoppingListRouter =require('./shopping-list/shopping-list-router')
 const app = express()
 
 const morganOption = (NODE_ENV === 'production')
@@ -23,6 +24,7 @@ app.use(helmet())
 app.use('/api/auth', AuthRouter);
 app.use('/api/meals', mealsRouter);
 app.use('/api/bookmarks', bookMarksRouter);
+app.use('/api/shoppinglist', shoppingListRouter)
 
  app.get('/', (req, res) => {
        res.send('Hello, world!')

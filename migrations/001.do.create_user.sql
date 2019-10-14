@@ -2,12 +2,14 @@ BEGIN;
 
 DROP TABLE IF EXISTS "meal";
 DROP TABLE IF EXISTS "bookmark";
+DROP TABLE IF EXISTS "shopping_list";
 DROP TABLE IF EXISTS "user";
+
 DROP SEQUENCE IF EXISTS "user_id_seq";
 DROP SEQUENCE IF EXISTS "bookmark_id_seq";
 DROP SEQUENCE IF EXISTS "meal_id_seq";
 
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
   "id" SERIAL PRIMARY KEY,
   "username" TEXT NOT NULL UNIQUE,
   "password" TEXT NOT NULL,
