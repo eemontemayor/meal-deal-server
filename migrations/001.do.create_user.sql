@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS "user";
 DROP SEQUENCE IF EXISTS "user_id_seq";
 DROP SEQUENCE IF EXISTS "bookmark_id_seq";
 DROP SEQUENCE IF EXISTS "meal_id_seq";
+DROP SEQUENCE IF EXISTS "shopping_list_id_seq";
 
 CREATE TABLE IF NOT EXISTS "user" (
   "id" SERIAL PRIMARY KEY,

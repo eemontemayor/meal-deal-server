@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS "bookmark" (
 CREATE TABLE IF NOT EXISTS "shopping_list" (
     "id" SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-  
     "date_added" TIMESTAMP DEFAULT now() NOT NULL,
     "checked" BOOLEAN DEFAULT false,
-  
+    "user_id" INTEGER REFERENCES "user"(id)
+    ON DELETE CASCADE NOT NULL
 );
 
