@@ -1,25 +1,31 @@
-const requireAuth = require('../middleware/jwt-auth')
-const jsonBodyParser= express.json()
 const express = require('express')
 const shoppingListRouter= express.Router()
+const jsonBodyParser= express.json()
 const ShoppingListService = require('./shopping-list-service')
+const requireAuth = require('../middleware/jwt-auth')
 
 shoppingListRouter
 .get('/', requireAuth, jsonBodyParser,(req,res, next)=>{
     const user_id = req.user.id
-
+   console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%13')
     ShoppingListService.getAllItems(
         req.app.get('db'),
         user_id
     )
-    .then(res => {
-        console.log(res)
-    })
+    .then((items) =>{
+        console.log(items,'<<<<<<<<<<<<<')
+        // return res.json(items)
+
+        return res.json(items.map(i => ShoppingListService.serializeItem(i)))
+    })  
     .catch(next);
 })    
 
 
-.post('/', requireAuth, jsonBodyParser,(req,res, next)=>{
+.post('/',requireAuth,jsonBodyParser,(req,res, next)=>{
+
+
+    
 
     const item = req.body
     item.user_id=req.user.id
@@ -28,12 +34,11 @@ shoppingListRouter
         req.app.get('db'),
         item
     )
-    .then(res=>{
-        console.log(res)
+    .then((item) =>{
+        return res.json(item)
+            // .map(i => ShoppingListService.serializeItem(i)))
+        
     })
     .catch(next);
-} )
-module.exports = shoppingListRouter
-
-
-
+})
+module.exports= shoppingListRouter

@@ -28,6 +28,17 @@ const ShoppingListService = {
         .returning('*')
         .then(rows => rows[0])
     },
+
+    serializeItem(item){
+      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^')
+        return{
+            id:item.id,
+            name:item.name,
+            date_added:item.date_added,
+            checked:item.checked,
+            user_id:item.user_id,
+        }
+    }
   }
   
   module.exports = ShoppingListService
