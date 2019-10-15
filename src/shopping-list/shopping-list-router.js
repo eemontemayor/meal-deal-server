@@ -41,4 +41,18 @@ shoppingListRouter
     })
     .catch(next);
 })
+.delete('/', jsonBodyParser,(req,res,next)=>{
+    let id = req.body.id
+   
+    ShoppingListService.deleteItem(
+        req.app.get('db'),
+        id
+    )
+    .then(item =>{
+        res.status(204).end()
+    })
+    .catch(next)
+    
+  
+})
 module.exports= shoppingListRouter
