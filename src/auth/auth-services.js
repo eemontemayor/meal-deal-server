@@ -19,7 +19,7 @@ const AuthServices = {
 
   validatePassword(password) {
     if (password.length < 6) {
-      return 'Password must be at least 6 characters';
+      return 'Password must be at least 6 characters and contain: an uppercase letter, lowercase letter, a number, and a special character';
     }
     if (password.length > 72) {
       return 'Password cannot be longer than 72 characters';
