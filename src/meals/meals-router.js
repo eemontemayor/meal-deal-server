@@ -3,7 +3,7 @@ const mealsRouter= express.Router()
 const jsonBodyParser= express.json()
 const mealService = require('./meals-services')
 const requireAuth = require('../middleware/jwt-auth')
-
+const path = require('path')
 
 mealsRouter
 .post('/', requireAuth, jsonBodyParser, (req,res,next)=>{
@@ -19,8 +19,10 @@ mealsRouter
         newMeal
     )
     .then((meal) => { 
-        
-        return res.json(meal.map(i => mealService.serializeMeal(i)))
+        res
+            .status(201)
+            .location(path.posix.join(req.originalUrl, `/${meal.id}`))
+            .json(mealService.serializeMeal(i))
     }) 
   
     .catch(next);
@@ -35,7 +37,9 @@ mealsRouter
         user_id
     )
     .then((meals) => {
-        return res.json(meals.map(i => mealService.serializeMeal(i)))
+        return res
+            .status(200)
+            .json(meals.map(i => mealService.serializeMeal(i)))
     })
     .catch(next);
 })
@@ -50,17 +54,20 @@ mealsRouter
         id
     )
     .then(meal =>{
-        res.status(204).end()
+        res
+            .status(204)
+            .end()
     })
     .catch(next)
     
   
 })
+//=====================================================
+
 mealsRouter
 .get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
 
     const on_day=req.params.date
-    
     const user_id = req.user.id
 
     mealService.getMealsByDate(
@@ -70,38 +77,47 @@ mealsRouter
     )
     .then((meals) => {
         
-        return res.json(meals.map(i => mealService.serializeMeal(i)))
+        return res
+            .status(200)
+            .json(meals.map(i => mealService.serializeMeal(i)))
     })
     .catch(next);
 })
 
+
+//TODO = RESTFUL
 // mealsRouter
-// .get('/bookmarks', requireAuth, jsonBodyParser,(req,res, next)=>{ 
-  
-//     const user_id = req.user.id
-//     console.log('+++++++++++++++++++++++++++++++++++')
-//     mealService.getBookmarks(
+// .delete('/:date/:meal_id', jsonBodyParser,(req,res,next)=>{
+//     const id = req.params.meal_id
+//     mealService.deleteMeal(
 //         req.app.get('db'),
-//         user_id
+//         id
 //     )
-//     .then((meals) => {
-//         return res.json(meals.map(i => mealService.serializeMeal(i)))
+//     .then(meal =>{
+//         res
+//             .status(204)
+//             .end()
 //     })
-//     .catch(next);
+//     .catch(next)
 // })
-// .post('/bookmarks', requireAuth, jsonBodyParser, (req,res,next)=>{
+
+// .post('/:date', requireAuth, jsonBodyParser, (req,res,next)=>{
    
 //     const newMeal = req.body;
     
 //     newMeal.user_id = req.user.id;
+  
+
 //     console.log(newMeal)
-//     mealService.insertBookmark(
+//     mealService.insertMeal(
 //         req.app.get('db'),
 //         newMeal
 //     )
 //     .then((meal) => { 
-        
-//         return res.json(meal.map(i => mealService.serializeMeal(i)))
+//         res
+//             .status(201)
+//             .location(path.posix.join(req.originalUrl, `/${meal.id}`))
+//             .json(mealService.serializeMeal(i))
 //     }) 
   
 //     .catch(next);

@@ -3,6 +3,7 @@ const bookMarksRouter= express.Router()
 const jsonBodyParser= express.json()
 const mealService = require('./meals-services')
 const requireAuth = require('../middleware/jwt-auth')
+const path = require('path')
 
 
 bookMarksRouter
@@ -14,7 +15,9 @@ bookMarksRouter
         user_id
     )
     .then((meals) => {
-        return res.json(meals.map(i => mealService.serializeMeal(i)))
+        return res
+            .status(200)
+            .json(meals.map(i => mealService.serializeMeal(i)))
     })
     .catch(next);
 })
@@ -27,9 +30,11 @@ bookMarksRouter
         req.app.get('db'),
         newMeal
     )
-    .then((meal) => { 
-        
-        return res.json(mealService.serializeMeal(meal))
+    .then((bm) => { 
+            res
+            .status(201)
+            .location(path.posix.join(req.originalUrl, `/${bm.id}`))
+            .json(mealService.serializeMeal(bm))
     }) 
   
     .catch(next);
@@ -41,11 +46,27 @@ bookMarksRouter
         req.app.get('db'),
         id
     )
-    .then(meal =>{
-        console.log(meal,'+++++++++++++++++++')
-        res.status(204).end()
+    .then(bm =>{
+        res
+            .status(204)
+            .end()
     })
     .catch(next)
     
 })
+
+
+//TODO = RESTFUL
+// bookMarksRouter
+// .delete('/:bookmark_id', jsonBodyParser,(req,res,next)=>{
+//     const id = req.params.bookmark_id
+//     mealService.deleteMeal(
+//         req.app.get('db'),
+//         id
+//     )
+//     .then(bm =>{
+//         res.status(204).end()
+//     })
+//     .catch(next)
+// })
 module.exports=bookMarksRouter

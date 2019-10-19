@@ -113,12 +113,15 @@ AuthRouter
   .post(requireAuth, (req, res) => {
     const sub = req.user.username;
     const payload = { user_id: req.user.id, name: req.user.name };
-
     if (req.user.username) {
       res.send({
         authToken: AuthServices.createJwt(sub, payload)
       });
     }
+    // const payload = { user_id: req.user.id };
+    // res.send({
+    //   authToken: AuthService.createJwt(sub, payload),
+    // })
   });
 
 module.exports = AuthRouter;
