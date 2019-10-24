@@ -77,7 +77,7 @@ const AuthServices = {
       subject,
       expiresIn: config.JWT_EXPIRY,
       algorithm: 'HS256'
-    });
+    })
   },
 
   verifyJwt(token) {

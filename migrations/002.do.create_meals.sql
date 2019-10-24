@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS "meal" (
   "id" SERIAL PRIMARY KEY,
   "meal_name" TEXT NOT NULL,
   "on_day" DATE, 
-  "ingredients" TEXT,
+  "ingredients" TEXT[],
+  "instructions" TEXT[],
   image TEXT,
   "date_created" TIMESTAMP DEFAULT now() NOT NULL,
   "user_id" INTEGER REFERENCES "user"(id)
@@ -14,7 +15,8 @@ CREATE TABLE IF NOT EXISTS "meal" (
 CREATE TABLE IF NOT EXISTS "bookmark" (
   "id" SERIAL PRIMARY KEY,
   "meal_name" TEXT NOT NULL,
-  "ingredients" TEXT,
+  "ingredients" TEXT[],
+  "instructions" TEXT[],
   image TEXT,
   "date_created" TIMESTAMP DEFAULT now() NOT NULL,
   "user_id" INTEGER REFERENCES "user"(id)
