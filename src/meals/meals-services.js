@@ -59,6 +59,7 @@ const mealService = {
             id: meal.id,
             meal_name: meal.meal_name,
             ingredients: meal.ingredients,
+            instructions:meal.instructions,
             image:meal.image,
             on_day: meal.on_day,
             user_id: meal.user_id
