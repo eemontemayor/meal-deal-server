@@ -12,6 +12,7 @@ const mealService = {
 
     deleteMeal(db, id){
         return db('meal')
+        // .where({user_id})
         .where({id})
         .delete() 
     },   
