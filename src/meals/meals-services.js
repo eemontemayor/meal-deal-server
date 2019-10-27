@@ -53,8 +53,17 @@ const mealService = {
         .where({id})
         .delete() 
     },  
-
-
+    updateMeal(db, id, newMealFields){
+        return db('meal')
+        .where({id})
+        .update(newMealFields)
+    },
+    updateBookMark(db, id, newMealFields){
+        return db('bookmark')
+        .where({id})
+        .update(newMealFields,returning=true)
+        .returning('*')
+    },
     serializeMeal(meal){
         return {
             id: meal.id,
