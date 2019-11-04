@@ -36,6 +36,9 @@ const mealService = {
     getBookmarks(db,user_id){
         return db.select('*').from('bookmark').where({user_id})
     },
+    getBookmarkById(db, user_id, id){
+        return db.select('*').from('bookmark').where({user_id}).where({id});
+    }, 
 
     insertBookmark(db, newMeal){
         return db

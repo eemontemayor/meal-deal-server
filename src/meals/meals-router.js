@@ -133,7 +133,7 @@ mealsRouter
 // })
 mealsRouter
 .post('/:date', requireAuth, jsonBodyParser, (req,res,next)=>{
-   
+   console.log('---->', req.body)
     const newMeal = req.body;
      newMeal.on_day=req.params.date
     newMeal.user_id = req.user.id;

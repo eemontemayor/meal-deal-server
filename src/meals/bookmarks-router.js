@@ -21,6 +21,9 @@ bookMarksRouter
     })
     .catch(next);
 })
+
+
+
 .post('/', requireAuth, jsonBodyParser, (req,res,next)=>{
     const newMeal = req.body;
     
@@ -55,7 +58,24 @@ bookMarksRouter
     
 })
 
-
+bookMarksRouter
+.get('/:bookmark_id', requireAuth, jsonBodyParser , (req,res,next)=>{
+    console.log('get bookmark by id <=++++====++++')
+    const id=req.params.bookmark_id
+    const user_id = req.user.id
+    mealService.getBookmarkById(
+        req.app.get('db'),
+        user_id,
+        id
+    )
+    .then((meals) => {
+        
+        return res
+            .status(200)
+            .json(meals.map(i => mealService.serializeMeal(i)))
+    })
+    .catch(next);
+})
 //TODO = RESTFUL
 // bookMarksRouter
 // .delete('/:bookmark_id', jsonBodyParser,(req,res,next)=>{
