@@ -12,6 +12,7 @@ const mealService = {
 
     deleteMeal(db, id){
         return db('meal')
+        // .where({user_id})
         .where({id})
         .delete() 
     },   
@@ -35,6 +36,9 @@ const mealService = {
     getBookmarks(db,user_id){
         return db.select('*').from('bookmark').where({user_id})
     },
+    getBookmarkById(db, user_id, id){
+        return db.select('*').from('bookmark').where({user_id}).where({id});
+    }, 
 
     insertBookmark(db, newMeal){
         return db
@@ -52,13 +56,23 @@ const mealService = {
         .where({id})
         .delete() 
     },  
-
-
+    updateMeal(db, id, newMealFields){
+        return db('meal')
+        .where({id})
+        .update(newMealFields)
+    },
+    updateBookMark(db, id, newMealFields){
+        return db('bookmark')
+        .where({id})
+        .update(newMealFields,returning=true)
+        .returning('*')
+    },
     serializeMeal(meal){
         return {
             id: meal.id,
             meal_name: meal.meal_name,
             ingredients: meal.ingredients,
+            instructions:meal.instructions,
             image:meal.image,
             on_day: meal.on_day,
             user_id: meal.user_id
