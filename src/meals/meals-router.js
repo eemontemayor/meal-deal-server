@@ -67,7 +67,7 @@ mealsRouter
 
 mealsRouter
 .get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
-
+    console.log(req.params ,"---------------------------")
     const on_day=req.params.date
     const user_id = req.user.id
 
@@ -84,7 +84,27 @@ mealsRouter
     })
     .catch(next);
 })
-.patch(':meal_id', requireAuth, jsonBodyParser, (req,res,next)=>{
+
+mealsRouter
+.get('/:date/:meal_id', requireAuth, jsonBodyParser , (req,res,next)=>{
+    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    const id=req.params.meal_id
+    const user_id = req.user.id
+    mealService.getMealById(
+        req.app.get('db'),
+        user_id,
+        id
+    )
+    .then((meals) => {
+        
+        return res
+            .status(200)
+            .json(meals.map(i => mealService.serializeMeal(i)))
+    })
+    .catch(next);
+})
+
+.patch('/:meal_id', requireAuth, jsonBodyParser, (req,res,next)=>{
     const user_id = req.user.id
     const {meal}= req.body
     const id= req.body.id
