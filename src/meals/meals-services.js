@@ -26,7 +26,9 @@ const mealService = {
     getMealsByDate(db, user_id, on_day){
         return db.select('*').from('meal').where({user_id}).where({on_day});
     }, 
-
+    getMealById(db, user_id, id){
+        return db.select('*').from('meal').where({user_id}).where({id});
+    }, 
 
 
 
