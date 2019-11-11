@@ -28,10 +28,11 @@ bookMarksRouter
     const newMeal = req.body;
     
     newMeal.user_id = req.user.id;
-
+    const user_id = req.user.id
     mealService.insertBookmark(
         req.app.get('db'),
-        newMeal
+        newMeal,
+        user_id
     )
     .then((bm) => { 
             res
