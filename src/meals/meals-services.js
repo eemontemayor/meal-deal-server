@@ -1,9 +1,10 @@
 const mealService = {
     
-    insertMeal(db, newMeal){
+    insertMeal(db, newMeal,user_id){
         return db
         .insert(newMeal)
         .into('meal')
+        .where({user_id})
         .returning('*')
         .then(meal=> {
             return meal  
@@ -42,10 +43,11 @@ const mealService = {
         return db.select('*').from('bookmark').where({user_id}).where({id});
     }, 
 
-    insertBookmark(db, newMeal){
+    insertBookmark(db, newMeal,user_id){
         return db
         .insert(newMeal)
         .into('bookmark')
+        .where({user_id})
         .returning('*')
         .then(meal=> {
             return meal  

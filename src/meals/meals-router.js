@@ -87,7 +87,7 @@ mealsRouter
 
 mealsRouter
 .get('/:date/:meal_id', requireAuth, jsonBodyParser , (req,res,next)=>{
-    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++')
+    
     const id=req.params.meal_id
     const user_id = req.user.id
     mealService.getMealById(
@@ -153,16 +153,17 @@ mealsRouter
 // })
 mealsRouter
 .post('/:date', requireAuth, jsonBodyParser, (req,res,next)=>{
-   console.log('---->', req.body)
+   
     const newMeal = req.body;
      newMeal.on_day=req.params.date
     newMeal.user_id = req.user.id;
-  
+    const user_id = req.user.id
 
     console.log(newMeal)
     mealService.insertMeal(
         req.app.get('db'),
         newMeal,
+        user_id
      
     )
     .then((meal) => { 
