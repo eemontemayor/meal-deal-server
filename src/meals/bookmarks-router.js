@@ -61,7 +61,7 @@ bookMarksRouter
 
 bookMarksRouter
 .get('/:bookmark_id', requireAuth, jsonBodyParser , (req,res,next)=>{
-    console.log('get bookmark by id <=++++====++++')
+    
     const id=req.params.bookmark_id
     const user_id = req.user.id
     mealService.getBookmarkById(
