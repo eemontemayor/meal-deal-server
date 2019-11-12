@@ -21,30 +21,6 @@ mealsRouter
     })
     .catch(next);
 })
-// .post('/', requireAuth, jsonBodyParser, (req,res,next)=>{
-//    console.log('=================')
-//     const newMeal = req.body;
-    
-//     newMeal.user_id = req.user.id;
-  
-
-//     console.log(newMeal)
-//     mealService.insertMeal(
-//         req.app.get('db'),
-//         newMeal
-//     )
-//     .then((meal) => { 
-//         res
-//             .status(201)
-//             .location(path.posix.join(req.originalUrl, `/${meal.id}`))
-//             .json(mealService.serializeMeal(meal))
-//     }) 
-  
-//     .catch(next);
-// })
-
-
-
 
 
 .delete('/', jsonBodyParser,(req,res,next)=>{
@@ -135,22 +111,7 @@ mealsRouter
 
 })
 
-// TODO = RESTFUL
-// mealsRouter
-// .delete('/:date/:meal_id', requireAuth, jsonBodyParser,(req,res,next)=>{
-//     const id = req.params.meal_id
-//     mealService.deleteMeal(
-//         req.app.get('db'),
-//         id,
-//         user_id,
-//     )
-//     .then(meal =>{
-//         res
-//             .status(204)
-//             .end()
-//     })
-//     .catch(next)
-// })
+
 mealsRouter
 .post('/:date', requireAuth, jsonBodyParser, (req,res,next)=>{
    
@@ -175,5 +136,21 @@ mealsRouter
   
     .catch(next);
 })
+// TODO = RESTFUL
+// mealsRouter
+// .delete('/:date/:meal_id', requireAuth, jsonBodyParser,(req,res,next)=>{
+//     const id = req.params.meal_id
+//     mealService.deleteMeal(
+//         req.app.get('db'),
+//         id,
+//         user_id,
+//     )
+//     .then(meal =>{
+//         res
+//             .status(204)
+//             .end()
+//     })
+//     .catch(next)
+// })
 
 module.exports = mealsRouter
