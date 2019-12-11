@@ -4,7 +4,9 @@ const jsonBodyParser= express.json()
 const mealService = require('./meals-services')
 const requireAuth = require('../middleware/jwt-auth')
 const path = require('path')
-
+const cookie = require('cookie');
+const axios = require('axios');
+const config = require('../config');
 mealsRouter
 .get('/', requireAuth, jsonBodyParser,(req,res, next)=>{ 
   
@@ -39,11 +41,37 @@ mealsRouter
     
   
 })
+
+mealsRouter
+.get('/explore/:meal', requireAuth, jsonBodyParser,(req,res, next)=>{ 
+  console.log(req.params.meal,'<------------')
+    const user_id = req.user.id
+
+    axios.get(`https://api.edamam.com/search?q=${req.params.meal}&app_id=${config.APP_ID}&app_key=${config.API_KEY}`, {
+        headers: {
+            'Accept-Encoding': 'gzip',
+            // 'Set-Cookie':  'SameSite=None',
+        }
+    
+     })
+   
+        .then((meals) => {
+            // console.log(meals.data.hits)
+            // res.cookie('cross-site-cookie', 'bar', { sameSite: 'none', secure: true })
+            return res
+            .cookie('cross-site-cookie', 'bar', { 'SameSite': 'none', secure: true })
+        
+            .status(200)
+            // .json(meals.map(i => mealService.serializeMeal(i)))
+            .json(meals.data.hits)
+    })
+    .catch(next);
+})
 //=====================================================
 
 mealsRouter
 .get('/:date', requireAuth, jsonBodyParser,(req,res, next)=>{ 
-    console.log(req.params ,"---------------------------")
+  
     const on_day=req.params.date
     const user_id = req.user.id
 
@@ -136,21 +164,6 @@ mealsRouter
   
     .catch(next);
 })
-// TODO = RESTFUL
-// mealsRouter
-// .delete('/:date/:meal_id', requireAuth, jsonBodyParser,(req,res,next)=>{
-//     const id = req.params.meal_id
-//     mealService.deleteMeal(
-//         req.app.get('db'),
-//         id,
-//         user_id,
-//     )
-//     .then(meal =>{
-//         res
-//             .status(204)
-//             .end()
-//     })
-//     .catch(next)
-// })
+
 
 module.exports = mealsRouter
