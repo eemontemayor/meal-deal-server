@@ -1,3 +1,7 @@
+
+const xss = require('xss');
+
+
 const mealService = {
     
     insertMeal(db, newMeal,user_id){
@@ -74,9 +78,9 @@ const mealService = {
     serializeMeal(meal){
         return {
             id: meal.id,
-            meal_name: meal.meal_name,
-            ingredients: meal.ingredients,
-            instructions:meal.instructions,
+            meal_name: xss(meal.meal_name),
+            ingredients: xss(meal.ingredients),
+            instructions:xss(meal.instructions),
             image:meal.image,
             on_day: meal.on_day,
             user_id: meal.user_id
