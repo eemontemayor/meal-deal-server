@@ -49,7 +49,7 @@ mealsRouter
     console.log(req.params.meal,'<------------')
     const user_id = req.user.id
 
-    axios.get(`https://api.edamam.com/search?q=${req.params.meal}&app_id=${config.APP_ID}&app_key=${config.API_KEY}`, {
+    axios.get(`https://api.edamam.com/search?q=${req.params.meal}&app_id=${config.APP_ID}&app_key=${config.API_KEY}&to=30`, {
       headers: {
         'Accept-Encoding': 'gzip',
         // 'Set-Cookie':  'SameSite=None',
